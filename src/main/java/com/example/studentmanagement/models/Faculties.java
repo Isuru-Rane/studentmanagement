@@ -22,6 +22,7 @@ public class Faculties {
     private String name;
 
     @OneToMany(mappedBy = "faculties", cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    @JsonIgnore
     private List<Cources> courcesList ;
 
 
