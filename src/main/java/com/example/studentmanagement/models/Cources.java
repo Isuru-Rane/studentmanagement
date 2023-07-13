@@ -23,10 +23,13 @@ public class Cources {
 
     private int fee;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "faculties_id", referencedColumnName = "id")
+    @JsonIgnore
     Faculties faculties;
 
     @ManyToOne
+    @JsonIgnore
     Admin admin;
 
     @OneToMany(mappedBy = "cources")
