@@ -21,11 +21,7 @@ public class Faculties {
     @Column(nullable = false, length = 45)
     private String name;
 
-    @OneToMany(mappedBy = "faculties", cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "faculties",fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Cources> courcesList ;
-
-
-
 
 }

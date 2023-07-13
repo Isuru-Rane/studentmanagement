@@ -1,5 +1,6 @@
 package com.example.studentmanagement.controller;
 
+import com.example.studentmanagement.models.Cources;
 import com.example.studentmanagement.models.Faculties;
 import com.example.studentmanagement.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ public class FacultyController {
     @Autowired
     private FacultyService service;
 
-    @GetMapping()
+   @GetMapping()
     public ResponseEntity<List<Faculties>> getFacultyList(){
         return ResponseEntity.ok(service.getFacultyList());
     }
+
+
 }
