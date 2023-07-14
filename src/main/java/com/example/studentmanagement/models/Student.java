@@ -21,6 +21,7 @@ public class Student {
     private String name;
 
     @ManyToOne
+    @JsonIgnore
     Admin admin;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.EAGER, orphanRemoval = true)
