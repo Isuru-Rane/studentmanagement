@@ -2,11 +2,14 @@ package com.example.studentmanagement.models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Getter
 @Setter
@@ -27,6 +30,12 @@ public class User {
     @Column(nullable = false, name = "psw")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    @Column(name="profile_pic")
+    private String profilePic;
+
+
+
 
 
 }
