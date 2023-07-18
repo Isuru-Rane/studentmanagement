@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,11 +28,16 @@ public class UserService {
 
 
     public User create(UserDto userDto){
+        Optional<User> userbyemail = repository.findAllByEmail(userDto.getEmail());
 
+        if (userbyemail.isPresent()){
+            throw new RuntimeException("All ready exsist");
+        }
 
         User user = UserDto.init(userDto);
         user.setProfilePicture(UUID.randomUUID().toString());
         user =  repository.save(user);
+
 
         try {
             String fileName = StringUtils.cleanPath(userDto.getProfilePicture().getOriginalFilename());
@@ -47,6 +53,11 @@ public class UserService {
             throw new RuntimeException(e.getCause());
         }
         return user;
+    }
+
+
+    public Optional<User> findAllByEmail(User user){
+        return repository.findAllByEmail(user.getEmail());
     }
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -32,6 +33,8 @@ public class UserController {
         userDto.setProfilePicture( request.getFile("profile_picture"));
         return ResponseEntity.ok(service.create(userDto));
     }
+
+
 
 
 
