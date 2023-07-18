@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
 
 
     @PostMapping()
-    public ResponseEntity<User> createUser(MultipartHttpServletRequest request){
+    public ResponseEntity<User> createUser(@Valid MultipartHttpServletRequest request){
         Gson gson = new Gson();
         UserDto userDto = gson.fromJson(request.getParameter("user"),UserDto.class);
         userDto.setProfilePicture( request.getFile("profile_picture"));

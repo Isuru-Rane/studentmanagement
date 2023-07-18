@@ -5,7 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
@@ -18,11 +22,13 @@ public class User {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @NotBlank(message = "Name is Mandatory")
     @Column(nullable = false, length = 45)
     private String name;
 
     @Column(nullable = false, unique = true, length = 45)
     private String email;
+
 
     @Column(nullable = false, name = "psw")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

@@ -19,7 +19,7 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    final static String USER_PROFILE = "Desktop/Treinetic";
+    final static String USER_PROFILE = "User/Desktop/Treinetic";
 
     public List<User> getUserList(){
         return repository.findAll();
