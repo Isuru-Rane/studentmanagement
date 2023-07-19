@@ -3,6 +3,7 @@ package com.example.studentmanagement.exceptions;
 import com.example.studentmanagement.exceptions.http.BadRequestException;
 import com.example.studentmanagement.exceptions.http.BaseException;
 import com.example.studentmanagement.exceptions.http.InternalErrorException;
+import com.example.studentmanagement.exceptions.http.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,10 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         BaseException internalServerError = new InternalErrorException(exception.getMessage());
         return internalServerError.getJsonResponse("requestDataProvider.getRequestHash()");
     }
+
+
+
+
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException exception, HttpHeaders headers, HttpStatus status, WebRequest webRequest){

@@ -19,11 +19,15 @@ public class BaseException extends RuntimeException{
     private Exception rootException;
     private List<String> errors;
 
+
     public BaseException(){}
 
     public BaseException(String message){
         this.message = message;
     }
+
+
+
 
 
     public BaseException(String message, String type, Exception rootException,Object... params){
@@ -49,6 +53,7 @@ public class BaseException extends RuntimeException{
     }
 
     public HttpStatus getCode(){
+
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
