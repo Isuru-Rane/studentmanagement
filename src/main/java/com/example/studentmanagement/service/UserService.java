@@ -1,6 +1,8 @@
 package com.example.studentmanagement.service;
 
 import com.example.studentmanagement.dto.UserDto;
+import com.example.studentmanagement.exceptions.http.BadRequestException;
+import com.example.studentmanagement.exceptions.user.UserExType;
 import com.example.studentmanagement.models.User;
 import com.example.studentmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,9 @@ public class UserService {
 
 
     public User create(UserDto userDto){
-        Optional<User> userbyemail = repository.findAllByEmail(userDto.getEmail());
 
-        if (userbyemail.isPresent()){
-            throw new RuntimeException("All ready exsist");
+        if (repository.findAllByEmail(userDto.getEmail()).isPresent()){
+            throw  new BadRequestException("email already exist", UserExType.EMAIL_ALREADY_EXIST);
         }
 
         User user = UserDto.init(userDto);
@@ -53,6 +54,10 @@ public class UserService {
             throw new RuntimeException(e.getCause());
         }
         return user;
+    }
+
+    public Optional<User>findById(int id){
+        return repository.findById(id);
     }
 
 

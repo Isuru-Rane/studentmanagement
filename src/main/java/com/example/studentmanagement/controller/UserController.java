@@ -25,7 +25,6 @@ public class UserController {
         return ResponseEntity.ok(service.getUserList());
     }
 
-
     @PostMapping()
     public ResponseEntity<User> createUser(@Valid MultipartHttpServletRequest request){
         Gson gson = new Gson();
@@ -34,10 +33,9 @@ public class UserController {
         return ResponseEntity.ok(service.create(userDto));
     }
 
-
-
-
-
-
+    @GetMapping("/{id}")
+    public ResponseEntity getUserListById(@PathVariable int id){
+        return ResponseEntity.ok(service.findById(id));
+    }
 
 }
