@@ -24,7 +24,7 @@ public class Student {
     Admin admin;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<StudentCource> studentCourceList = new java.util.ArrayList<>();
+    private List<StudentCource> studentCourceList ;
 
 
 }

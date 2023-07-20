@@ -23,11 +23,11 @@ public class Exam {
     private String name;
 
     @ManyToOne
+    @JsonIgnore
     Cources cources;
 
-    @OneToMany(mappedBy = "exam")
-    @JsonIgnore
-    private List<Result> resultList = new java.util.ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam",fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Result> resultList;
 
 
 }

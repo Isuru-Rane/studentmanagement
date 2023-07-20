@@ -27,5 +27,4 @@ public class ExceptionController {
         return ResponseEntity.badRequest().body(errorMessage.toString());
     }
 
-
 }

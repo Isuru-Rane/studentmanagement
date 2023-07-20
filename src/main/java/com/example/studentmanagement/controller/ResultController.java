@@ -1,8 +1,7 @@
 package com.example.studentmanagement.controller;
 
-import com.example.studentmanagement.models.Cources;
-import com.example.studentmanagement.models.Faculties;
-import com.example.studentmanagement.service.FacultyService;
+import com.example.studentmanagement.models.Result;
+import com.example.studentmanagement.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/faculties")
-public class FacultyController {
+@RequestMapping("/result")
+public class ResultController {
     @Autowired
-    private FacultyService service;
+    ResultService service;
 
-   @GetMapping()
-    public ResponseEntity<List<Faculties>> getFacultyList(){
 
-       return ResponseEntity.ok(service.getFacultyList());
+    @GetMapping()
+    public ResponseEntity<List<Result>> getResultList(){
+        return ResponseEntity.ok(service.getResultsList());
     }
-
 
 }

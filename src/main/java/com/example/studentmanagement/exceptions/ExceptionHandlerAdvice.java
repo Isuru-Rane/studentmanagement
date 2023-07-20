@@ -33,11 +33,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         BaseException internalServerError = new InternalErrorException(exception.getMessage());
         return internalServerError.getJsonResponse("requestDataProvider.getRequestHash()");
     }
-
-
-
-
-
+    
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException exception, HttpHeaders headers, HttpStatus status, WebRequest webRequest){
         log.error("exception occurred [Malformed Exception] error {}",exception.getMessage());
@@ -46,6 +42,4 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         BadRequestException badRequestException = new BadRequestException("malformed request body");
         return badRequestException.getJsonResponse("requestDataProvider.getRequestHash()");
     }
-
-
 }
