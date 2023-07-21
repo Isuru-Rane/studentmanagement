@@ -8,7 +8,6 @@ import com.example.studentmanagement.exceptions.user.UserExType;
 import com.example.studentmanagement.models.User;
 import com.example.studentmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -76,6 +75,13 @@ public class UserService {
         return repository.findById(id);
     }
 
+    public void delete(Integer id){
+        Optional<User> userOptional = repository.findById(id);
+        if (userOptional.isEmpty()){
+            throw new RuntimeException("user not found");
+        }
+        repository.delete(userOptional.get());
+    }
 
 
 
