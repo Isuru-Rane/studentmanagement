@@ -1,5 +1,6 @@
 package com.example.studentmanagement.service;
 
+import com.example.studentmanagement.dto.MailDto;
 import com.example.studentmanagement.dto.UserDto;
 import com.example.studentmanagement.exceptions.http.BadRequestException;
 import com.example.studentmanagement.exceptions.http.UserNotFoundException;
@@ -24,6 +25,9 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private MailService mailService;
+
     final static String USER_PROFILE = "User/Desktop/Treinetic";
 
     public List<User> getUserList(){
@@ -41,6 +45,13 @@ public class UserService {
         user.setProfilePicture(UUID.randomUUID().toString());
         user =  repository.save(user);
 
+        mailService.sendSimpleMail(
+                MailDto.builder()
+                        .body("Welcome "+user.getName())
+                        .subject("Welcome")
+                        .receiver(user.getEmail())
+                        .build()
+        );
 
         try {
             String fileName = StringUtils.cleanPath(userDto.getProfilePicture().getOriginalFilename());
