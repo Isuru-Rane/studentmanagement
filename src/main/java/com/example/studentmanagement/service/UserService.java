@@ -29,6 +29,8 @@ public class UserService {
 
     final static String USER_PROFILE = "User/Desktop/Treinetic";
 
+    final String[] imageExtensions = {"image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp", "image/tiff", "image/webp", "image/svg", "image/ico", "image/raw"};
+
     public List<User> getUserList(){
         return repository.findAll();
     }
