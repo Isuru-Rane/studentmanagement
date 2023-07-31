@@ -27,14 +27,17 @@ public class BaseException extends RuntimeException{
     }
 
 
-
-
-
     public BaseException(String message, String type, Exception rootException,Object... params){
         super(message);
         this.message = formattedExceptionMessage(message,params);
         this.type = type;
         this.rootException = rootException;
+    }
+
+    public BaseException(String message, String type){
+        super(message);
+        this.message = message;
+        this.type = type;
     }
 
 

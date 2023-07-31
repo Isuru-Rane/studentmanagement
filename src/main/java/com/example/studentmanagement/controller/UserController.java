@@ -3,6 +3,7 @@ package com.example.studentmanagement.controller;
 import com.example.studentmanagement.dto.UserDto;
 import com.example.studentmanagement.models.User;
 import com.example.studentmanagement.service.UserService;
+import com.example.studentmanagement.security.Session;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class UserController {
         return ResponseEntity.ok(service.getUserList());
     }
 
-    @PostMapping()
-    public ResponseEntity<User> createUser(@Valid MultipartHttpServletRequest request){
+    @PostMapping("/register")
+    public ResponseEntity<User> createUser(MultipartHttpServletRequest request){
         Gson gson = new Gson();
         UserDto userDto = gson.fromJson(request.getParameter("user"),UserDto.class);
         userDto.setProfilePicture( request.getFile("profile_picture"));
@@ -41,6 +42,13 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id){
         service.delete(id);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody UserDto userDto){
+        User user = service.login(userDto);
+        Session.setUser(user);
+        return ResponseEntity.ok(user);
     }
 
 }

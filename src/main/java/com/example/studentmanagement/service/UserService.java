@@ -3,10 +3,12 @@ package com.example.studentmanagement.service;
 import com.example.studentmanagement.dto.MailDto;
 import com.example.studentmanagement.dto.UserDto;
 import com.example.studentmanagement.exceptions.http.BadRequestException;
+import com.example.studentmanagement.exceptions.http.UnauthorizedException;
 import com.example.studentmanagement.exceptions.http.UserNotFoundException;
 import com.example.studentmanagement.exceptions.user.UserExType;
 import com.example.studentmanagement.models.User;
 import com.example.studentmanagement.repository.UserRepository;
+import com.example.studentmanagement.security.helper.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,8 +31,18 @@ public class UserService {
 
     final static String USER_PROFILE = "User/Desktop/Treinetic";
 
-    final String[] imageExtensions = {"image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp", "image/tiff", "image/webp", "image/svg", "image/ico", "image/raw"};
 
+
+    public User login(UserDto userDto){
+        Optional<User> user = repository.findAllByEmail(userDto.getEmail());
+        if (user.isEmpty()){
+            throw new UnauthorizedException("Invalid Credentials");
+        }
+        if (!Hash.match(userDto.getPassword(),user.get().getPassword())){
+            throw new UnauthorizedException("Invalid Credentials");
+        }
+        return user.get();
+    }
     public List<User> getUserList(){
         return repository.findAll();
     }
@@ -83,6 +95,10 @@ public class UserService {
             throw new RuntimeException("user not found");
         }
         repository.delete(userOptional.get());
+    }
+
+    public Optional<User> findUserById(Integer id){
+        return repository.findById(id);
     }
 
 
