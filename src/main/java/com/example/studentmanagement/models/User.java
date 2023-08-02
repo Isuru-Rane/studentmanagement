@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 
-    @Pattern(regexp = "^[a-zA-Z0-9]{5,10}", message = "The password is not strong")
+
     @Column(nullable = false, name = "psw")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

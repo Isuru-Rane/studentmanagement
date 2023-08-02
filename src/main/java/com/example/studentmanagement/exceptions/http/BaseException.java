@@ -18,6 +18,7 @@ public class BaseException extends RuntimeException{
     private String type;
     private Exception rootException;
     private List<String> errors;
+    private int statusCode;
 
 
     public BaseException(){}
