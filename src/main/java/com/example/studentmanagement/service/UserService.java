@@ -12,6 +12,7 @@ import com.example.studentmanagement.repository.UserRepository;
 import com.example.studentmanagement.security.helper.Hash;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -32,6 +33,9 @@ public class UserService {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     final static String USER_PROFILE = "User/Desktop/Treinetic";
 
@@ -66,6 +70,10 @@ public class UserService {
                 throw new ProfilePictureException("Provided image is not valid",UserExType.PROFILE_PICTURE_NOT_VALID);
             }
             user.setProfilePicture(UUID.randomUUID().toString());
+
+
+
+
             try {
                 String fileName = StringUtils.cleanPath(userDto.getProfilePicture().getOriginalFilename());
                 String fileExtension = StringUtils.getFilenameExtension(fileName);
@@ -84,12 +92,15 @@ public class UserService {
         user =  repository.save(user);
         log.info("create user. email {}",userDto.getEmail());
 
-//        EmailService emailService=new EmailService();
-//        if (userDto.getAttachment()!=null){
-//            emailService.sendMailWithAttachment(user.getEmail(),javaMailSender, userDto.getAttachment());
-//        }else {
-//            emailService.Mail(user.getEmail(),javaMailSender);
-//        }
+        /*EmailService emailService=new EmailService();
+        if (userDto.getAttachment()!=null){
+            emailService.sendMailWithAttachment(user.getEmail(),javaMailSender, userDto.getAttachment());
+        }else {
+            emailService.Mail(user.getEmail(),javaMailSender);
+        }*/
+
+        MailService emailService=new MailService();
+        emailService.sendSimpleMail(user.getEmail(),mailSender);
         return user;
     }
 

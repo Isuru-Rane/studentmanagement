@@ -18,27 +18,24 @@ public class MailService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    public void sendSimpleMail(MailDto details) {
-        log.info("send Email. details = {}",details.toString());
-
+    public void sendSimpleMail(String email, JavaMailSender mailSender) {
 
         try {
 
-            SimpleMailMessage mailMessage
-                    = new SimpleMailMessage();
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
 
             mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getReceiver());
-            mailMessage.setText(details.getBody());
-            mailMessage.setSubject(details.getSubject());
+            mailMessage.setTo(email);
+            mailMessage.setText("You have created an account");
+            mailMessage.setSubject("Account successfully created");
 
             mailSender.send(mailMessage);
-            log.info("mail successfully send");
+            log.info("email sent to {}",email);
         }
 
         catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e.getCause());
+            throw  new RuntimeException(e.getMessage());
 
         }
 
